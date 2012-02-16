@@ -1,0 +1,152 @@
+/* === Reset === 
+
+   inspiriert u.a. durch normalize.css von Nicolas Gallagher (https://github.com/necolas/normalize.css/)
+
+   ============= */
+/* Standardverhalten für HTML5-Elemente */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+/* 
+ Aus Gründen der Performance werden nicht alle möglichen Regeln definiert,
+ sondern nur darauf hingewiesen, dass sie nötig sein könnten:
+
+ Spezielle Regeln für Medien-Elemente
+
+ Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris 
+
+ Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
+
+
+*/
+/* Ein bisschen was Grundsätzliches */
+html {
+  font-size: 100%;
+  /* Repariert ein Text-sizing-Problem im IE (http://clagnut.com/blog/348/#c790) */
+
+  -webkit-txt-size-adjust: 100%;
+  /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
+
+  -ms-text-size-adjust: 100%;
+  /* iOS beim Switchen zu Landscape zu lösen:
+        www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+
+  oveflow-y: scroll;
+  /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
+
+}
+/* Der magische Reset der Abstände. Das ist sinnvoll. */
+* {
+  margin: 0;
+  padding: 0;
+}
+/* Anpassen einiger Elemente */
+ul {
+  list-style-type: none;
+}
+a:focus {
+  outline: thin dotted;
+  /* Chrome macht das sonst seltsam */
+
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+  /* Einige Browser machen das sonst nicht */
+
+}
+b,
+strong {
+  font-weight: bold;
+  /* Chrome und andere setzen std.-mäßig "bolder" */
+
+}
+img {
+  border: 0;
+  /* Falls IE / FF3 und innerhalb von a, brauchts das */
+
+  -ms-interpolation-mode: bicubic;
+  /* Sieht besser aus */
+
+}
+/* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
+blockquote,
+q {
+  quotes: "\201E" "\201C" "\201A" "\2018";
+}
+blockquote:before,
+q:before {
+  content: "\201E";
+}
+blockquote q:before,
+q q:before {
+  content: "\201A";
+}
+blockquote:after,
+q:after {
+  content: "\201C";
+}
+blockquote q:after,
+q q:after {
+  content: "\2018";
+}
+/* === Reset Ende === */
+/* === Struktur === */
+body {
+  width: 90%;
+  margin: 0 auto;
+}
+#main {
+  overflow: hidden;
+}
+@media screen and (min-width: 1024px) {
+  #content {
+    width: 58.80339887498949%;
+    float: right;
+  }
+  aside {
+    float: left;
+    width: 35.19660112501051%;
+    border-right: 1px dotted;
+  }
+}
+p,
+ul,
+ol,
+dl,
+article,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1.4444em;
+}
+/* === Struktur Ende === */
+/* === Schrift === */
+body {
+  font-size: 1em;
+  line-height: 1.4444em;
+  font-family: sans-serif;
+  background-color: #ffffff;
+  color: #444444;
+}
+header h1 {
+  font-size: 2.5em;
+  line-height: 1.4444em;
+  font-family: sans-serif;
+}
+header h2 {
+  font-size: 2em;
+  line-height: 1.4444em;
+  font-family: sans-serif;
+}

@@ -1,0 +1,255 @@
+// === Variablen-Definitionen (LESS) === \\
+
+
+// Farben
+
+@bgcolor: #fff;
+@color: #444;
+@linkcolor: #00c;
+
+// Größen
+
+@fontsize: 1em;
+@vertical: @fontsize * 1.4444em;
+@pagewidth: 90%;
+
+// Goldener Schnitt
+@golden: `100 * (((1+Math.sqrt(5))/2)-1)`;
+@golden1: -3 + @golden;
+@golden2: 94 - @golden1;
+
+// Fluid-Grid
+@colCount: 12;
+@colWidth: 5%;
+@gutWidth: 1.6666%;
+
+.col() {
+	float:left;
+	margin-left:@gutWidth;
+	margin-right:@gutWidth;
+}
+
+.col1() {
+	width:1 * @colWidth;
+}
+.col2() {
+	width:(2 * @colWidth) + (2 * @gutWidth);
+}
+.col3() {
+	width:(3 * @colWidth) + (4 * @gutWidth);
+}
+.col4() {
+	width:(4 * @colWidth) + (6 * @gutWidth);
+}
+.col5() {
+	width:(5 * @colWidth) + (8 * @gutWidth);
+}
+.col6() {
+	width:(6 * @colWidth) + (10 * @gutWidth);
+}
+.col7() {
+	width:(7 * @colWidth) + (12 * @gutWidth);
+}
+.col8() {
+	width:(8 * @colWidth) + (14 * @gutWidth);
+}
+.col9() {
+	width:(9 * @colWidth) + (16 * @gutWidth);
+}
+.col10() {
+	width:(10 * @colWidth) + (18 * @gutWidth);
+}
+.col11() {
+	width:(11 * @colWidth) + (20 * @gutWidth);
+}
+.col12() {
+	width:(12 * @colWidth) + (20 * @gutWidth);
+}
+
+
+
+// === Variablen Ende === \\
+
+// === Mixins === \\
+
+.border-radius(@radius:5px) {
+	border-radius:@radius;
+	-webkit-border-radius:@radius;
+	-moz-border-radius:@radius;
+}
+
+.transition(
+   @what:all,
+   @length:0.5s,
+   @easing:ease-in-out) {
+	transition:@what @length @easing;
+	-webkit-transition:@what @length @easing;
+	-moz-transition:@what @length @easing;
+	-o-transition:@what @length @easing;
+}
+
+.linear-gradient(
+   @start:#fff,
+   @end:#ddd,
+   @percent:100%) {
+	background:@start;
+	background:-moz-linear-gradient(top, @start 0%, @end @percent);
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(@percent,@end));
+	background:-webkit-linear-gradient(top, @start 0%, @end @percent);
+	background:-o-linear-gradient(top, @start 0%, @end @percent);
+	background:-ms-linear-gradient(top, @start 0%, @end @percent);
+	background:linear-gradient(top, @start 0%, @end @percent);
+}
+
+.font(
+   @size:@fontsize,
+   @lineheight:@vertical,
+   @stack:sans-serif) {
+	font-size:@size;
+	line-height:@lineheight;
+	font-family:@stack;
+}
+
+// === Mixins Ende === \\
+
+
+/* === Reset === 
+
+   inspiriert u.a. durch normalize.css von Nicolas Gallagher (https://github.com/necolas/normalize.css/)
+
+   ============= */
+
+/* Standardverhalten für HTML5-Elemente */
+
+article, aside, details, 
+figcaption, figure, footer, 
+header, hgroup, nav, section {
+	display:block;
+}
+
+/* 
+ Aus Gründen der Performance werden nicht alle möglichen Regeln definiert,
+ sondern nur darauf hingewiesen, dass sie nötig sein könnten:
+
+ Spezielle Regeln für Medien-Elemente
+
+ Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris 
+
+ Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
+
+
+*/
+
+/* Ein bisschen was Grundsätzliches */
+
+html {
+	font-size:100%; /* Repariert ein Text-sizing-Problem im IE (http://clagnut.com/blog/348/#c790) */
+	-webkit-txt-size-adjust:100%;  /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
+	-ms-text-size-adjust:100%;     /* iOS beim Switchen zu Landscape zu lösen:
+        www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+	oveflow-y:scroll; /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
+}
+
+/* Der magische Reset der Abstände. Das ist sinnvoll. */
+
+* {
+	margin:0;
+	padding:0;
+}
+
+/* Anpassen einiger Elemente */
+
+ul {
+	list-style-type:none;
+}
+
+a:focus {
+	outline:thin dotted; /* Chrome macht das sonst seltsam */
+}
+
+abbr[title] {
+	border-bottom:1px dotted; /* Einige Browser machen das sonst nicht */
+}
+
+b, strong {
+	font-weight:bold; /* Chrome und andere setzen std.-mäßig "bolder" */
+}
+
+img {
+	border:0; /* Falls IE / FF3 und innerhalb von a, brauchts das */
+	-ms-interpolation-mode:bicubic; /* Sieht besser aus */
+}
+
+/* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
+
+blockquote, q {
+    quotes:"\201E" "\201C" "\201A" "\2018";
+}
+
+blockquote:before, q:before {
+		content:"\201E";
+}
+
+blockquote q:before, q q:before {
+		content:"\201A";
+}
+
+blockquote:after, q:after {
+    content:"\201C";
+}
+
+blockquote q:after, q q:after {
+    content:"\2018";
+}
+
+/* === Reset Ende === */
+
+
+
+/* === Struktur === */
+
+body {
+	width:@pagewidth;
+	margin:0 auto;
+}
+
+#main {
+	overflow:hidden;
+}
+
+@media screen and (min-width: 1024px) {
+	#content {
+		width:~"@{golden1}%";
+		float:right;
+	}
+	aside {
+		float:left;
+		width:~"@{golden2}%";
+		border-right:1px dotted;
+	}
+}
+
+p,ul,ol,dl,article,h1,h2,h3,h4,h5,h6 {
+	margin-bottom:@vertical;
+}
+
+/* === Struktur Ende === */
+
+/* === Schrift === */
+
+body {
+//	font-size:@fontsize;
+//	line-height:@vertical;
+//	font-family:sans-serif;
+	.font;
+	background-color:@bgcolor;
+	color:@color;
+}
+
+header h1 {
+	.font(2.5em);
+}
+
+header h2 {
+	.font(2em);
+}
