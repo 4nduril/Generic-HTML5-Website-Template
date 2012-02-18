@@ -116,12 +116,24 @@ body {
     float: left;
     width: 35.19660112501051%;
     border-right: 1px dotted;
+    padding-right: 3%;
   }
+}
+#grid {
+  clear: both;
+}
+.grid3 {
+  float: left;
+  margin-left: 1.6666%;
+  margin-right: 1.6666%;
+  width: 29.9996%;
 }
 p,
 ul,
 ol,
 dl,
+aside,
+section,
 article,
 h1,
 h2,

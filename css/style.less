@@ -226,10 +226,20 @@ body {
 		float:left;
 		width:~"@{golden2}%";
 		border-right:1px dotted;
+		padding-right:3%;
 	}
 }
 
-p,ul,ol,dl,article,h1,h2,h3,h4,h5,h6 {
+#grid {
+	clear:both;
+}
+
+.grid3 {
+	.col();
+	.col4();
+}
+
+p,ul,ol,dl,aside,section,article,h1,h2,h3,h4,h5,h6 {
 	margin-bottom:@vertical;
 }
 
