@@ -1,0 +1,163 @@
+// === Mixins und Grids === \\
+
+
+// Goldener Schnitt
+
+@golden: `100 * (((1+Math.sqrt(5))/2)-1)`;
+@golden1: -3 + @golden;
+@golden2: 94 - @golden1;
+
+
+// Fluid-Grid
+
+@colCount: 12;
+@colWidth: 5%;
+@gutWidth: 1.6666%;
+
+.col(@spaltenzahl: 12,@offsetLeft: 0,@offsetRight: 0) {
+	float:left;
+	margin-left:@gutWidth + (@offsetLeft * @colWidth) + (2 * @offsetLeft * @gutWidth);
+	margin-right:@gutWidth + (@offsetRight * @colWidth) + (2 * @offsetRight * @gutWidth);
+	width:(@spaltenzahl * @colWidth) + ((2 * @spaltenzahl - 2) * @gutWidth);
+}
+
+
+
+.border-radius(@radius:5px) {
+	border-radius:@radius;
+	-webkit-border-radius:@radius;
+	-moz-border-radius:@radius;
+}
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.5) {
+	-webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}
+
+.box-shadow(
+   @x:2px,
+   @y:2px,
+   @blur:5px,
+   @color:rgba(0,0,0,0.5)) {
+	-webkit-box-shadow:@x @y @blur @color; 
+	-moz-box-shadow:@x @y @blur @color;
+	box-shadow:@x @y @blur @color;
+}
+
+.inset-box-shadow(
+   @x:0,
+   @y:1px,
+   @blur:2px,
+   @color:rgba(0,0,0,.5)) {
+	-webkit-box-shadow:@x @y @blur @color inset; 
+	-moz-box-shadow:@x @y @blur @color inset;
+	box-shadow:@x @y @blur @color inset;
+}
+
+.box-shadow-full(@declaration) {
+	-webkit-box-shadow:@declaration;
+	-moz-box-shadow:@declaration;
+	box-shadow:@declaration;
+}
+
+.transition(
+   @what:all,
+   @length:0.5s,
+   @easing:ease-in-out) {
+	-webkit-transition:@what @length @easing;
+	-moz-transition:@what @length @easing;
+	-o-transition:@what @length @easing;
+	-ms-transition:@what @length @easing;
+	transition:@what @length @easing;
+}
+
+.transition-full(@declaration) {
+	-webkit-transition:@declaration;
+	-moz-transition:@declaration;
+	-o-transition:@declaration;
+	-ms-transition:@declaration;
+	transition:@declaration;
+}
+
+.scale(@x) {
+	-webkit-transform:scale(@x);
+	-moz-transform:scale(@x);
+	-o-transform:scale(@x);
+	-ms-transform:scale(@x);
+	transform:scale(@x);
+}
+
+.linear-gradient(
+   @start:#fff,
+   @end:#ddd,
+   @percent:100%) {
+	background:@start;
+	background:-moz-linear-gradient(top, @start 0%, @end @percent);
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(@percent,@end));
+	background:-webkit-linear-gradient(top, @start 0%, @end @percent);
+	background:-o-linear-gradient(top, @start 0%, @end @percent);
+	background:-ms-linear-gradient(top, @start 0%, @end @percent);
+	background:linear-gradient(top, @start 0%, @end @percent);
+}
+
+.radial-gradient(
+   @startcolor:#fff,
+   @endcolor:#ddd,
+   @position:center center,
+   @startrange:0%,
+   @endrange:100%,
+   @shape:circle cover) {
+	background:@endcolor;
+	background-image:-webkit-gradient(radial, @position, @startrange, @position, @endrange, from(@startcolor), to(@endcolor));
+	background-image:-webkit-radial-gradient(@position, @shape, @startcolor @startrange, @endcolor @endrange);
+	background-image:-moz-radial-gradient(@position, @shape, @startcolor @startrange, @endcolor @endrange);
+	background-image:-ms-radial-gradient(@position, @shape, @startcolor @startrange, @endcolor @endrange);
+	background-image:-o-radial-gradient(@position, @shape, @startcolor @startrange, @endcolor @endrange);
+	background-image:radial-gradient(@position, @shape, @startcolor @startrange, @endcolor @endrange);
+}
+
+.font(
+   @size:@fontsize,
+   @lineheight:@vertical,
+   @stack:@fontfamily) {
+	font-size:@size;
+	line-height:@lineheight;
+	font-family:@stack;
+}
+
+.cf() {
+   /* For IE 6/7 (trigger hasLayout) */
+   zoom:1;
+      &:before, &:after {
+         content:"";
+         display:table;
+      }
+      &:after {
+         clear:both;
+      }
+}
+
+.column-width(
+   @width:17em) {
+	-webkit-column-width:@width;
+	-moz-column-width:@width;
+	column-width:@width;
+}
+
+.column-gap(
+   @width:1.5em) {
+	-webkit-column-gap:@width;
+	-moz-column-gap:@width;
+	column-gap:@width;
+}
+
+.column-count(
+   @count:1.5em) {
+	-webkit-column-count:@count;
+	-moz-column-count:@count;
+	column-count:@count;
+}
+
+// === Mixins Ende === \\
+

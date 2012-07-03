@@ -32,14 +32,17 @@ html {
 	-webkit-txt-size-adjust:100%;  /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
 	-ms-text-size-adjust:100%;     /* iOS beim Switchen zu Landscape zu lösen:
         www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
-	oveflow-y:scroll; /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
+	overflow-y:scroll; /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
 }
 
-/* Der magische Reset der Abstände. Das ist sinnvoll. */
+/* Der magische Reset der Abstände. Das ist sinnvoll. Außerdem das vernünftige Box-Modell. */
 
 * {
 	margin:0;
 	padding:0;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
 }
 
 /* Anpassen einiger Elemente */
@@ -50,6 +53,12 @@ ul {
 
 a:focus {
 	outline:thin dotted; /* Chrome macht das sonst seltsam */
+}
+
+div, section, article, aside, nav, footer {
+	&:focus {
+		outline:none; /* Nötig für das Script yaml-fixfocus.js, das sonst in Chrome eine outline um die angesprungene Section macht */
+	}
 }
 
 abbr[title] {
@@ -88,6 +97,5 @@ blockquote q:after, q q:after {
 }
 
 /* === Reset Ende === */
-
 
 

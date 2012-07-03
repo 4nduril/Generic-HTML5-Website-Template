@@ -1,209 +1,65 @@
 // === Variablen-Definitionen (LESS) === \\
 
+@import "normalize.less";
+@import "presets.less";
+
 
 // Farben
 
-@bgcolor: #fff;
-@color: #444;
-@linkcolor: #00c;
+@bgcolor: #212121;
+@color: white;
+@textbgcolor: #fff;
+@textcolor: #444;
+@maincolor: #04819e; 
+@linkcolor: #a61300;
+@linkhovercolor: #e2001a;
+@bordercolor: #ccc;
 
 // Größen
 
 @fontsize: 1em;
-@vertical: @fontsize * 1.4444em;
-@pagewidth: 90%;
+@lineheight: 1.4444;
+@vertical: @fontsize * @lineheight;
+@pagewidth: 100%;
+@inhaltpadding:1em;
 
-// Goldener Schnitt
-@golden: `100 * (((1+Math.sqrt(5))/2)-1)`;
-@golden1: -3 + @golden;
-@golden2: 94 - @golden1;
+// Schrift
 
-// Fluid-Grid
-@colCount: 12;
-@colWidth: 5%;
-@gutWidth: 1.6666%;
+@fontfamily: sans-serif;
 
-.col() {
-	float:left;
-	margin-left:@gutWidth;
-	margin-right:@gutWidth;
-}
+// Schriftgrößen und lineheights um sie in das .font()-Mixin zu setzen:
 
-.col1() {
-	width:1 * @colWidth;
-}
-.col2() {
-	width:(2 * @colWidth) + (2 * @gutWidth);
-}
-.col3() {
-	width:(3 * @colWidth) + (4 * @gutWidth);
-}
-.col4() {
-	width:(4 * @colWidth) + (6 * @gutWidth);
-}
-.col5() {
-	width:(5 * @colWidth) + (8 * @gutWidth);
-}
-.col6() {
-	width:(6 * @colWidth) + (10 * @gutWidth);
-}
-.col7() {
-	width:(7 * @colWidth) + (12 * @gutWidth);
-}
-.col8() {
-	width:(8 * @colWidth) + (14 * @gutWidth);
-}
-.col9() {
-	width:(9 * @colWidth) + (16 * @gutWidth);
-}
-.col10() {
-	width:(10 * @colWidth) + (18 * @gutWidth);
-}
-.col11() {
-	width:(11 * @colWidth) + (20 * @gutWidth);
-}
-.col12() {
-	width:(12 * @colWidth) + (20 * @gutWidth);
-}
+@h1: @fontsize * 2;
+@h1line: @lineheight;
+
+@h2: @fontsize * @lineheight;
+@h2line: 1;
+
+@h3: @fontsize * 1.2;
+@h3line: @lineheight / 1.2;
+
+@h4: @fontsize * 1.1;
+@h4line: @lineheight / 1.1;
+
+@h5: @fontsize * 1;
+@h5line: @lineheight;
+
+@h6: @fontsize * 1;
+@h6line: @lineheight;
 
 
+@giga: @fontsize * 3;
+@gigaline: @lineheight;
 
-// === Variablen Ende === \\
+@mega: @fontsize * 2.5;
+@megaline: @lineheight / 1.25;
 
-// === Mixins === \\
-
-.border-radius(@radius:5px) {
-	border-radius:@radius;
-	-webkit-border-radius:@radius;
-	-moz-border-radius:@radius;
-}
-
-.transition(
-   @what:all,
-   @length:0.5s,
-   @easing:ease-in-out) {
-	transition:@what @length @easing;
-	-webkit-transition:@what @length @easing;
-	-moz-transition:@what @length @easing;
-	-o-transition:@what @length @easing;
-}
-
-.linear-gradient(
-   @start:#fff,
-   @end:#ddd,
-   @percent:100%) {
-	background:@start;
-	background:-moz-linear-gradient(top, @start 0%, @end @percent);
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(@percent,@end));
-	background:-webkit-linear-gradient(top, @start 0%, @end @percent);
-	background:-o-linear-gradient(top, @start 0%, @end @percent);
-	background:-ms-linear-gradient(top, @start 0%, @end @percent);
-	background:linear-gradient(top, @start 0%, @end @percent);
-}
-
-.font(
-   @size:@fontsize,
-   @lineheight:@vertical,
-   @stack:sans-serif) {
-	font-size:@size;
-	line-height:@lineheight;
-	font-family:@stack;
-}
-
-// === Mixins Ende === \\
+@kilo: @fontsize * 2.2;
+@kiloline: @lineheight / 1.1;
 
 
-/* === Reset === 
-
-   inspiriert u.a. durch normalize.css von Nicolas Gallagher (https://github.com/necolas/normalize.css/)
-
-   ============= */
-
-/* Standardverhalten für HTML5-Elemente */
-
-article, aside, details, 
-figcaption, figure, footer, 
-header, hgroup, nav, section {
-	display:block;
-}
-
-/* 
- Aus Gründen der Performance werden nicht alle möglichen Regeln definiert,
- sondern nur darauf hingewiesen, dass sie nötig sein könnten:
-
- Spezielle Regeln für Medien-Elemente
-
- Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris 
-
- Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
-
-
-*/
-
-/* Ein bisschen was Grundsätzliches */
-
-html {
-	font-size:100%; /* Repariert ein Text-sizing-Problem im IE (http://clagnut.com/blog/348/#c790) */
-	-webkit-txt-size-adjust:100%;  /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
-	-ms-text-size-adjust:100%;     /* iOS beim Switchen zu Landscape zu lösen:
-        www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
-	oveflow-y:scroll; /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
-}
-
-/* Der magische Reset der Abstände. Das ist sinnvoll. */
-
-* {
-	margin:0;
-	padding:0;
-}
-
-/* Anpassen einiger Elemente */
-
-ul {
-	list-style-type:none;
-}
-
-a:focus {
-	outline:thin dotted; /* Chrome macht das sonst seltsam */
-}
-
-abbr[title] {
-	border-bottom:1px dotted; /* Einige Browser machen das sonst nicht */
-}
-
-b, strong {
-	font-weight:bold; /* Chrome und andere setzen std.-mäßig "bolder" */
-}
-
-img {
-	border:0; /* Falls IE / FF3 und innerhalb von a, brauchts das */
-	-ms-interpolation-mode:bicubic; /* Sieht besser aus */
-}
-
-/* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
-
-blockquote, q {
-    quotes:"\201E" "\201C" "\201A" "\2018";
-}
-
-blockquote:before, q:before {
-		content:"\201E";
-}
-
-blockquote q:before, q q:before {
-		content:"\201A";
-}
-
-blockquote:after, q:after {
-    content:"\201C";
-}
-
-blockquote q:after, q q:after {
-    content:"\2018";
-}
-
-/* === Reset Ende === */
-
+@milli: @fontsize * 0.8125;
+@milliline: @lineheight / 0.8125;
 
 
 /* === Struktur === */
@@ -213,21 +69,36 @@ body {
 	margin:0 auto;
 }
 
-#main {
-	overflow:hidden;
+p,ul,ol,dl,aside,section,article,h1,h3,h4,h5,h6,hgroup,address,hr {
+	margin-bottom:@vertical;
 }
 
-@media screen and (min-width: 1024px) {
-	#content {
-		width:~"@{golden1}%";
-		float:right;
-	}
-	aside {
-		float:left;
-		width:~"@{golden2}%";
-		border-right:1px dotted;
-		padding-right:3%;
-	}
+/* Bei h2 passt @vertical nicht. */
+
+h2 {
+	margin-bottom:1em;
+}
+
+header {
+	margin-top:@vertical;
+}
+
+header,#main {
+	.col();
+}
+
+nav {
+	.col();
+}
+
+nav li {
+	display:inline-block;
+	margin-right:1em;
+}
+
+aside {
+	.col(3);
+	float:right;
 }
 
 #grid {
@@ -235,12 +106,7 @@ body {
 }
 
 .grid3 {
-	.col();
-	.col4();
-}
-
-p,ul,ol,dl,aside,section,article,h1,h2,h3,h4,h5,h6 {
-	margin-bottom:@vertical;
+	.col(4);
 }
 
 /* === Struktur Ende === */
@@ -248,18 +114,71 @@ p,ul,ol,dl,aside,section,article,h1,h2,h3,h4,h5,h6 {
 /* === Schrift === */
 
 body {
-//	font-size:@fontsize;
-//	line-height:@vertical;
-//	font-family:sans-serif;
-	.font;
+	.font();
 	background-color:@bgcolor;
 	color:@color;
 }
 
 header h1 {
-	.font(2.5em);
+	.font(@mega,@megaline);
+	margin-bottom:0;
 }
 
 header h2 {
-	.font(2em);
+	.font(@h1,@h1line);
+}
+
+/* Print-Stylesheet übernommmen aus http://html5boilerplate.com */
+
+@media print {
+	* { 
+		background: transparent !important; 
+		color: #444 !important; 
+		text-shadow: none !important;
+	}
+	a, a:visited { 
+		color: #444 !important; 
+		text-decoration: underline; 
+	}
+	a:after { 
+		content: " (" attr(href) ")"; 
+	}
+	abbr:after { 
+		content: " (" attr(title) ")"; 
+	}
+	pre, blockquote { 
+		border: 1px solid #999; 
+		page-break-inside: avoid; 
+	}
+	thead { 
+		display: table-header-group;  /* css-discuss.incutio.com/wiki/Printing_Tables */
+	}
+	tr, img { 
+		page-break-inside: avoid; 
+	}
+	@page { 
+		margin: 0.5cm; 
+	}
+	p, h2, h3 { 
+		orphans: 3; widows: 3; 
+	}
+	h2, h3 { 
+	page-break-after: avoid; 
+	}
+	.top-navi, .haupt-navi, .sub-navi, .site-footer {
+		display:none;
+	}
+// Extra-Optionen für Joomla!-Templates o.ä.
+//	/* Mail/Print-Buttons ausblenden */
+//	.actions {
+//		display:none !important;
+//	}
+//	/* Suchfeld ausblenden */
+//	.header-search-form {
+//		display:none !important;
+//	}
+//	/* Formulare ausblenden */
+//	.foxcontainer {
+//		display:none !important;
+//	}
 }
