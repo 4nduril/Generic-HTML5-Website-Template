@@ -3,9 +3,9 @@
 
 // Goldener Schnitt
 
-@golden: `100 * (((1+Math.sqrt(5))/2)-1)`;
-@golden1: -3 + @golden;
-@golden2: 94 - @golden1;
+@golden: 61.80339887498949;
+@golden1: (-3 + @golden);
+@golden2: (94 - @golden1);
 
 
 // Fluid-Grid
@@ -21,7 +21,11 @@
 	width:(@spaltenzahl * @colWidth) + ((2 * @spaltenzahl - 2) * @gutWidth);
 }
 
-
+.no-col() {
+	float:none;
+	margin:0;
+	width:100%;
+}
 
 .border-radius(@radius:5px) {
 	border-radius:@radius;
@@ -68,7 +72,6 @@
 	-webkit-transition:@what @length @easing;
 	-moz-transition:@what @length @easing;
 	-o-transition:@what @length @easing;
-	-ms-transition:@what @length @easing;
 	transition:@what @length @easing;
 }
 
@@ -76,7 +79,6 @@
 	-webkit-transition:@declaration;
 	-moz-transition:@declaration;
 	-o-transition:@declaration;
-	-ms-transition:@declaration;
 	transition:@declaration;
 }
 
@@ -91,14 +93,17 @@
 .linear-gradient(
    @start:#fff,
    @end:#ddd,
-   @percent:100%) {
-	background:@start;
-	background:-moz-linear-gradient(top, @start 0%, @end @percent);
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(@percent,@end));
-	background:-webkit-linear-gradient(top, @start 0%, @end @percent);
-	background:-o-linear-gradient(top, @start 0%, @end @percent);
-	background:-ms-linear-gradient(top, @start 0%, @end @percent);
-	background:linear-gradient(top, @start 0%, @end @percent);
+   @frompercent:0%,
+   @topercent:100%,
+   @from:top,
+   @to:bottom) {
+	background-color:@start;
+	background-image:-webkit-gradient(linear, left top, ~`("@{from}" == "top") ? 'left bottom' : 'right top'` , color-stop(@frompercent,@start), color-stop(@topercent,@end));
+	background-image:-webkit-linear-gradient(@from, @start @frompercent, @end @topercent);
+	background-image:-moz-linear-gradient(@from, @start @frompercent, @end @topercent);
+	background-image:-ms-linear-gradient(@from, @start @frompercent, @end @topercent);
+	background-image:-o-linear-gradient(@from, @start @frompercent, @end @topercent);
+	background-image:linear-gradient(to @to, @start @frompercent, @end @topercent);
 }
 
 .radial-gradient(
@@ -159,5 +164,63 @@
 	column-count:@count;
 }
 
+.column-rule(
+   @width:1px,
+   @stroke:solid,
+   @color:@textcolor) {
+	-webkit-column-rule:@width @stroke @color;
+	-moz-column-rule:@width @stroke @color;
+	column-rule:@width @stroke @color;
+}
+
+.box-sizing(
+	@type:border-box) {
+		-webkit-box-sizing:@type;
+		-moz-box-sizing:@type;
+		box-sizing:@type;
+}
+
 // === Mixins Ende === \\
 
+// === Schriftgroessen === \\
+
+@h1: @fontsize * 2;
+@h1line: @lineheight;
+
+@h2: @fontsize * @lineheight;
+@h2line: 1;
+
+@h3: @fontsize * 1.2;
+@h3line: @lineheight / 1.2;
+
+@h4: @fontsize * 1.1;
+@h4line: @lineheight / 1.1;
+
+@h5: @fontsize * 1;
+@h5line: @lineheight;
+
+@h6: @fontsize * 1;
+@h6line: @lineheight;
+
+
+@giga: @fontsize * 3;
+@gigaline: @lineheight;
+
+@mega: @fontsize * 2.5;
+@megaline: @lineheight / 1.25;
+
+@kilo: @fontsize * 2.2;
+@kiloline: @lineheight / 1.1;
+
+
+@milli: @fontsize * 0.8125;
+@milliline: @lineheight / 0.8125;
+
+@micro: @fontsize * 0.6;
+@microline: @lineheight / 0.6;
+
+// === Vordefinierte Klassen === \\
+
+.hidden {
+	display:none;
+}

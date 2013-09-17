@@ -11,9 +11,9 @@ figcaption,
 figure,
 footer,
 header,
-hgroup,
 nav,
-section {
+section,
+main {
   display: block;
 }
 /* 
@@ -22,7 +22,10 @@ section {
 
  Spezielle Regeln für Medien-Elemente
 
- Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris 
+ Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris
+ [hidden] {
+	 display:none;
+ }
 
  Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
 
@@ -33,7 +36,7 @@ html {
   font-size: 100%;
   /* Repariert ein Text-sizing-Problem im IE (http://clagnut.com/blog/348/#c790) */
 
-  -webkit-txt-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
 
   -ms-text-size-adjust: 100%;
@@ -56,10 +59,17 @@ html {
 ul {
   list-style-type: none;
 }
+a {
+  background: transparent;
+}
 a:focus {
   outline: thin dotted;
   /* Chrome macht das sonst seltsam */
 
+}
+a:active,
+a:hover {
+  outline: 0;
 }
 div:focus,
 section:focus,
@@ -90,32 +100,50 @@ img {
   /* Sieht besser aus */
 
 }
+/* Komisches Verhalten von Safari und Chrome reparieren: */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+pre {
+  white-space: pre-wrap;
+}
 /* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
-blockquote,
 q {
   quotes: "\201E" "\201C" "\201A" "\2018";
 }
-blockquote:before,
 q:before {
   content: "\201E";
 }
-blockquote q:before,
 q q:before {
   content: "\201A";
 }
-blockquote:after,
 q:after {
   content: "\201C";
 }
-blockquote q:after,
 q q:after {
   content: "\2018";
 }
+blockquote {
+  font-style: italic;
+  padding: 0 1em;
+  border-left: 3px solid #ddd;
+}
 /* === Reset Ende === */
-/* === Struktur === */
+.hidden {
+  display: none;
+}
 body {
   width: 100%;
   margin: 0 auto;
+  font-size: 1em;
+  line-height: 1.4444em;
+  font-family: sans-serif;
+  background-color: #212121;
+  color: #ffffff;
 }
 p,
 ul,
@@ -129,70 +157,16 @@ h3,
 h4,
 h5,
 h6,
-hgroup,
 address,
-hr {
+hr,
+main,
+table,
+iframe {
   margin-bottom: 1.4444em;
 }
 /* Bei h2 passt @vertical nicht. */
 h2 {
   margin-bottom: 1em;
-}
-header {
-  margin-top: 1.4444em;
-}
-header,
-#main {
-  float: left;
-  margin-left: 1.6666%;
-  margin-right: 1.6666%;
-  width: 96.6652%;
-}
-nav {
-  float: left;
-  margin-left: 1.6666%;
-  margin-right: 1.6666%;
-  width: 96.6652%;
-}
-nav li {
-  display: inline-block;
-  margin-right: 1em;
-}
-aside {
-  float: left;
-  margin-left: 1.6666%;
-  margin-right: 1.6666%;
-  width: 21.6664%;
-  float: right;
-}
-#grid {
-  clear: both;
-}
-.grid3 {
-  float: left;
-  margin-left: 1.6666%;
-  margin-right: 1.6666%;
-  width: 29.9996%;
-}
-/* === Struktur Ende === */
-/* === Schrift === */
-body {
-  font-size: 1em;
-  line-height: 1.4444em;
-  font-family: sans-serif;
-  background-color: #212121;
-  color: #ffffff;
-}
-header h1 {
-  font-size: 2.5em;
-  line-height: 1.1555199999999999;
-  font-family: sans-serif;
-  margin-bottom: 0;
-}
-header h2 {
-  font-size: 2em;
-  line-height: 1.4444;
-  font-family: sans-serif;
 }
 /* Print-Stylesheet übernommmen aus http://html5boilerplate.com */
 @media print {

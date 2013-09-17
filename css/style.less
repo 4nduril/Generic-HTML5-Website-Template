@@ -27,49 +27,19 @@
 
 @fontfamily: sans-serif;
 
-// Schriftgrößen und lineheights um sie in das .font()-Mixin zu setzen:
+// === Variablen Ende === \\
 
-@h1: @fontsize * 2;
-@h1line: @lineheight;
-
-@h2: @fontsize * @lineheight;
-@h2line: 1;
-
-@h3: @fontsize * 1.2;
-@h3line: @lineheight / 1.2;
-
-@h4: @fontsize * 1.1;
-@h4line: @lineheight / 1.1;
-
-@h5: @fontsize * 1;
-@h5line: @lineheight;
-
-@h6: @fontsize * 1;
-@h6line: @lineheight;
-
-
-@giga: @fontsize * 3;
-@gigaline: @lineheight;
-
-@mega: @fontsize * 2.5;
-@megaline: @lineheight / 1.25;
-
-@kilo: @fontsize * 2.2;
-@kiloline: @lineheight / 1.1;
-
-
-@milli: @fontsize * 0.8125;
-@milliline: @lineheight / 0.8125;
-
-
-/* === Struktur === */
+// === Global === \\
 
 body {
 	width:@pagewidth;
 	margin:0 auto;
+	.font();
+	background-color:@bgcolor;
+	color:@color;
 }
 
-p,ul,ol,dl,aside,section,article,h1,h3,h4,h5,h6,hgroup,address,hr {
+p,ul,ol,dl,aside,section,article,h1,h3,h4,h5,h6,address,hr,main,table,iframe {
 	margin-bottom:@vertical;
 }
 
@@ -79,54 +49,13 @@ h2 {
 	margin-bottom:1em;
 }
 
-header {
-	margin-top:@vertical;
-}
+// === Global Ende === \\
 
-header,#main {
-	.col();
-}
+// === Site-specific styles === \\
 
-nav {
-	.col();
-}
 
-nav li {
-	display:inline-block;
-	margin-right:1em;
-}
 
-aside {
-	.col(3);
-	float:right;
-}
-
-#grid {
-	clear:both;
-}
-
-.grid3 {
-	.col(4);
-}
-
-/* === Struktur Ende === */
-
-/* === Schrift === */
-
-body {
-	.font();
-	background-color:@bgcolor;
-	color:@color;
-}
-
-header h1 {
-	.font(@mega,@megaline);
-	margin-bottom:0;
-}
-
-header h2 {
-	.font(@h1,@h1line);
-}
+// === Styles Ende === \\
 
 /* Print-Stylesheet übernommmen aus http://html5boilerplate.com */
 

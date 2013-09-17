@@ -18,7 +18,10 @@ header, nav, section, main {
 
  Spezielle Regeln für Medien-Elemente
 
- Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris 
+ Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris
+ [hidden] {
+	 display:none;
+ }
 
  Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
 
@@ -51,8 +54,14 @@ ul {
 	list-style-type:none;
 }
 
-a:focus {
-	outline:thin dotted; /* Chrome macht das sonst seltsam */
+a {
+	background:transparent;
+	&:focus {
+		outline:thin dotted; /* Chrome macht das sonst seltsam */
+	}
+	&:active, &:hover {
+		outline:0;
+	}
 }
 
 div, section, article, aside, nav, footer {
@@ -74,26 +83,42 @@ img {
 	-ms-interpolation-mode:bicubic; /* Sieht besser aus */
 }
 
+/* Komisches Verhalten von Safari und Chrome reparieren: */
+code, kbd, pre, samp {
+	font-family:monospace, serif;
+	font-size:1em;
+}
+
+pre {
+	white-space:pre-wrap;
+}
+
 /* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
 
-blockquote, q {
+q {
     quotes:"\201E" "\201C" "\201A" "\2018";
 }
 
-blockquote:before, q:before {
+q:before {
 		content:"\201E";
 }
 
-blockquote q:before, q q:before {
+q q:before {
 		content:"\201A";
 }
 
-blockquote:after, q:after {
+q:after {
     content:"\201C";
 }
 
-blockquote q:after, q q:after {
+q q:after {
     content:"\2018";
+}
+
+blockquote {
+	font-style:italic;
+	padding:0 1em;
+	border-left:3px solid #ddd;
 }
 
 /* === Reset Ende === */
