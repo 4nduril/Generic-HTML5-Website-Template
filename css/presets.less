@@ -91,19 +91,16 @@
 }
 
 .linear-gradient(
-   @start:#fff,
-   @end:#ddd,
-   @frompercent:0%,
-   @topercent:100%,
-   @from:top,
-   @to:bottom) {
-	background-color:@start;
-	background-image:-webkit-gradient(linear, left top, ~`("@{from}" == "top") ? 'left bottom' : 'right top'` , color-stop(@frompercent,@start), color-stop(@topercent,@end));
-	background-image:-webkit-linear-gradient(@from, @start @frompercent, @end @topercent);
-	background-image:-moz-linear-gradient(@from, @start @frompercent, @end @topercent);
-	background-image:-ms-linear-gradient(@from, @start @frompercent, @end @topercent);
-	background-image:-o-linear-gradient(@from, @start @frompercent, @end @topercent);
-	background-image:linear-gradient(to @to, @start @frompercent, @end @topercent);
+   @color-stop-list:#fff 0%, #ddd 100%;
+   @fallback:#eee;
+   @from:top;
+   @to:bottom;
+   ) {
+	background-color:@fallback;
+	background-image:-webkit-linear-gradient(@from, @color-stop-list);
+	background-image:-moz-linear-gradient(@from, @color-stop-list);
+	background-image:-o-linear-gradient(@from, @color-stop-list);
+	background-image:linear-gradient(to @to, @color-stop-list);
 }
 
 .radial-gradient(
