@@ -23,6 +23,5 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-modernizr": "^0.5.2",
     "grunt-regex-replace": "^0.2.6",
-    "jquery": "^2.1.1"
   }
 }
