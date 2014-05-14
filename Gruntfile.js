@@ -75,6 +75,44 @@ module.exports = function (grunt) {
 				]
 			},
 		},
+		imagemin: {
+			dist: {
+				options: {
+					progressive: true,
+					optimizationLevel: 7
+				},
+				files: [
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{jpg,JPG,jpeg}'],
+						dest: 'dist/images/',
+						ext: '.jpg'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{gif,GIF}'],
+						dest: 'dist/images/',
+						ext: '.gif'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{png,PNG}'],
+						dest: 'dist/images/',
+						ext: '.png'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{svg,SVG}'],
+						dest: 'dist/images/',
+						ext: '.svg'
+					},
+				]
+			}
+		},
 		jshint: {
 			files: ['dev/js/' + name + '.js'],
 		},
@@ -159,6 +197,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-modernizr');
@@ -167,6 +206,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['less:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'copy:dev']);
-	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist']);
-/*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist']);*/
+	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);
+/*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);*/
 };
