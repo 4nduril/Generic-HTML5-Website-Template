@@ -6,6 +6,7 @@
   "devDependencies": {
     "html5shiv": "~3.7.2",
     "respond": "~1.4.2",
-    "jquery": "~1.11"
+    "jquery": "~1.11",
+    "yaml-focusfix": "/home/tobi/Dropbox/Arbeit/Projekte/ZAK/js/yaml-focusfix.js"
   }
 }
