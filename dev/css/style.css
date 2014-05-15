@@ -1,0 +1,211 @@
+/* === Reset === 
+
+   inspiriert u.a. durch normalize.css von Nicolas Gallagher (https://github.com/necolas/normalize.css/)
+
+   ============= */
+/* Standardverhalten für HTML5-Elemente */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+nav,
+section,
+main {
+  display: block;
+}
+/* 
+ Aus Gründen der Performance werden nicht alle möglichen Regeln definiert,
+ sondern nur darauf hingewiesen, dass sie nötig sein könnten:
+
+ Spezielle Regeln für Medien-Elemente
+
+ Reparieren des "hidden"-Attributes für IE (nicht 6) und alte FF und Safaris
+ [hidden] {
+	 display:none;
+ }
+
+ Falls Formulare gestylt werden sollen, cursor für buttons usw. anpassen
+
+
+*/
+/* Ein bisschen was Grundsätzliches */
+html {
+  font-size: 100%;
+  /* Repariert ein Text-sizing-Problem im IE (http://clagnut.com/blog/348/#c790) */
+  -webkit-text-size-adjust: 100%;
+  /* Ebenso wie die nächste Zeile dafür da, ein Problem von */
+  -ms-text-size-adjust: 100%;
+  /* iOS beim Switchen zu Landscape zu lösen:
+        www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+  overflow-y: scroll;
+  /* zeigt immer vertikale Scrollbalken an: Die Seite "springt" nicht */
+}
+/* Der magische Reset der Abstände. Das ist sinnvoll. Außerdem das vernünftige Box-Modell. */
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* Anpassen einiger Elemente */
+ul {
+  list-style-type: none;
+}
+a {
+  background: transparent;
+}
+a:focus {
+  outline: thin dotted;
+  /* Chrome macht das sonst seltsam */
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+div:focus,
+section:focus,
+article:focus,
+aside:focus,
+nav:focus,
+footer:focus {
+  outline: none;
+  /* Nötig für das Script yaml-fixfocus.js, das sonst in Chrome eine outline um die angesprungene Section macht */
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+  /* Einige Browser machen das sonst nicht */
+}
+b,
+strong {
+  font-weight: bold;
+  /* Chrome und andere setzen std.-mäßig "bolder" */
+}
+img {
+  border: 0;
+  /* Falls IE / FF3 und innerhalb von a, brauchts das */
+  -ms-interpolation-mode: bicubic;
+  /* Sieht besser aus */
+}
+/* Komisches Verhalten von Safari und Chrome reparieren: */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+pre {
+  white-space: pre-wrap;
+}
+/* Korrekte Anführungszeichen setzen; ggfs. blockquote entfernen und z.B. durch Einzug markieren */
+q {
+  quotes: "\201E" "\201C" "\201A" "\2018";
+}
+q:before {
+  content: "\201E";
+}
+q q:before {
+  content: "\201A";
+}
+q:after {
+  content: "\201C";
+}
+q q:after {
+  content: "\2018";
+}
+blockquote {
+  font-style: italic;
+  padding: 0 1em;
+  border-left: 3px solid #ddd;
+}
+/* === Reset Ende === */
+.hidden {
+  display: none;
+}
+body {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1em;
+  line-height: 1.4444em;
+  font-family: sans-serif;
+  background-color: #212121;
+  color: #ffffff;
+}
+p,
+ul,
+ol,
+dl,
+aside,
+section,
+article,
+h1,
+h3,
+h4,
+h5,
+h6,
+address,
+hr,
+main,
+table,
+iframe {
+  margin-bottom: 1.4444em;
+}
+/* Bei h2 passt @vertical nicht. */
+h2 {
+  margin-bottom: 1em;
+}
+/* Print-Stylesheet übernommmen aus http://html5boilerplate.com */
+@media print {
+  * {
+    background: transparent !important;
+    color: #444 !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    color: #444 !important;
+    text-decoration: underline;
+  }
+  a:after {
+    content: " (" attr(href) ")";
+  }
+  abbr:after {
+    content: " (" attr(title) ")";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+    /* css-discuss.incutio.com/wiki/Printing_Tables */
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+  .top-navi,
+  .haupt-navi,
+  .sub-navi,
+  .site-footer {
+    display: none;
+  }
+}
