@@ -2,11 +2,12 @@
   "name": "Webproject Template",
   "version": "0.0.1",
   "main": "",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "html5shiv": "~3.7.2",
     "respond": "~1.4.2",
     "jquery": "~1.11",
-    "yaml-focusfix": "/home/tobi/Dropbox/Arbeit/Projekte/ZAK/js/yaml-focusfix.js"
-  }
+    "yaml-focusfix.js": "https://github.com/yamlcss/yaml/raw/master/yaml/core/js/yaml-focusfix.js",
+    "rem-unit-polyfill": "~1.2.4"
+  },
+  "devDependencies": {}
 }

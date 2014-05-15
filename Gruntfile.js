@@ -36,6 +36,15 @@ module.exports = function (grunt) {
 					},
 					{
 						expand: true,
+						src: ['bower/yaml-focusfix.js/index.js'],
+						dest: 'js/',
+						flatten: true,
+						rename: function(dest, src) {
+							return dest + 'focusfix.js';
+						}
+					},
+					{
+						expand: true,
 						cwd: 'pages/',
 						src: ['**/*.html', '**/*.php'],
 						dest: 'dev/'
@@ -144,9 +153,24 @@ module.exports = function (grunt) {
 			}
 		},
 		"regex-replace": {
+			dev: {
+				src: ['dev/**/*.html', 'dist/**/*.php'],
+				actions: [
+					{
+						name: "Inject project's main JS filename",
+						search: /PROJECT(\.js)/,
+						replace: name + '$1'
+					}
+				]
+			},
 			dist: {
 				src: ['dist/**/*.html', 'dist/**/*.php'],
 				actions: [
+					{
+						name: "Inject project's main JS filename",
+						search: /PROJECT(\.js)/,
+						replace: name + '$1'
+					},
 					{
 						name: 'Minify script tag',
 						search: /(?:\.min)*(\.js)(?!o)/g,
@@ -205,7 +229,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['less:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'copy:dev']);
+	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'regex-replace:dev']);
 	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);
 /*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);*/
 };
