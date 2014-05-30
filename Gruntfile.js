@@ -48,6 +48,12 @@ module.exports = function (grunt) {
 						cwd: 'pages/',
 						src: ['**/*.html', '**/*.php'],
 						dest: 'dev/'
+					},
+					{
+						expand: true,
+						cwd: 'images/',
+						src: ['*.{jpg,JPG,jpeg}', '*.{gif,GIF}', '*.{png,PNG}', '*.{SVG,svg}'],
+						dest: 'dev/images/'
 					}
 				]
 			},
@@ -64,6 +70,12 @@ module.exports = function (grunt) {
 						cwd: 'pages/',
 						src: ['**/*.html', '**/*.php'],
 						dest: 'dist/'
+					},
+					{
+						expand: true,
+						cwd: 'images/',
+						src: ['*.{jpg,JPG,jpeg}', '*.{gif,GIF}', '*.{png,PNG}', '*.{SVG,svg}'],
+						dest: 'dist/images/'
 					}
 				]
 			},
@@ -117,6 +129,42 @@ module.exports = function (grunt) {
 						cwd: 'images/compress/',
 						src: ['**/*.{svg,SVG}'],
 						dest: 'dist/images/',
+						ext: '.svg'
+					},
+				]
+			},
+			dev: {
+				options: {
+					progressive: true,
+					optimizationLevel: 7
+				},
+				files: [
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{jpg,JPG,jpeg}'],
+						dest: 'dev/images/',
+						ext: '.jpg'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{gif,GIF}'],
+						dest: 'dev/images/',
+						ext: '.gif'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{png,PNG}'],
+						dest: 'dev/images/',
+						ext: '.png'
+					},
+					{
+						expand: true,
+						cwd: 'images/compress/',
+						src: ['**/*.{svg,SVG}'],
+						dest: 'dev/images/',
 						ext: '.svg'
 					},
 				]
@@ -229,7 +277,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'regex-replace:dev']);
-	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);
+	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'regex-replace:dev', 'imagemin:dev']);
+	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin:dist']);
 /*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);*/
 };
