@@ -5,6 +5,9 @@
 module.exports = function (grunt) {
 
 	var name = '<%= pkg.name %>';
+	var ownJs = ['jquery', 'PROJECT', 'old-ie', 'old-ie2-superweirdbehaviour'];
+	var minJsRegExString = '(' + ownJs.join('|') + ')' + '(?:\\.min)*(\\.js)(?!o)';
+	var minJsRegEx = new RegExp(minJsRegExString, 'g');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -46,7 +49,7 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						cwd: 'pages/',
-						src: ['**/*.html', '**/*.php'],
+						src: ['**/*.html', '**/*.php', '.htaccess', '**/*.xml', '**/*.txt'],
 						dest: 'dev/'
 					},
 					{
@@ -68,7 +71,7 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						cwd: 'pages/',
-						src: ['**/*.html', '**/*.php'],
+						src: ['**/*.html', '**/*.php', '.htaccess', '**/*.xml', '**/*.txt'],
 						dest: 'dist/'
 					},
 					{
@@ -197,7 +200,9 @@ module.exports = function (grunt) {
 					'mq': true,
 					'cssclasses': true
 				},
-				'src': ['dev/js/src/*.js', 'dev/css/*.css']
+				'files': {
+					'src': ['js/*.js', 'css/*.less']
+				}
 			}
 		},
 		"regex-replace": {
@@ -215,14 +220,14 @@ module.exports = function (grunt) {
 				src: ['dist/**/*.html', 'dist/**/*.php'],
 				actions: [
 					{
-						name: "Inject project's main JS filename",
-						search: /PROJECT(\.js)/,
-						replace: name + '$1'
+						name: 'Minify script tag',
+						search: minJsRegExString,
+						replace: '$1.min$2'
 					},
 					{
-						name: 'Minify script tag',
-						search: /(?:\.min)*(\.js)(?!o)/g,
-						replace: '.min$1'
+						name: "Inject project's main JS filename",
+						search: /PROJECT(\.min\.js)/,
+						replace: name + '$1'
 					},
 					{
 						name: 'Minify CSS',
@@ -277,7 +282,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', 'concat:modernizr', 'regex-replace:dev', 'imagemin:dev']);
+	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', /*'concat:modernizr',*/ 'regex-replace:dev', 'imagemin:dev']);
 	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin:dist']);
-/*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin']);*/
+/*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin:dist']);*/
 };
