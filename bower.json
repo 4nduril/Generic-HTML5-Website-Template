@@ -9,5 +9,7 @@
     "yaml-focusfix.js": "https://github.com/yamlcss/yaml/raw/master/yaml/core/js/yaml-focusfix.js",
     "rem-unit-polyfill": "~1.2.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "qunit": "~1.16.0"
+  }
 }
