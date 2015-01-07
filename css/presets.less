@@ -21,6 +21,66 @@
 	width:(@spaltenzahl * @colWidth) + ((2 * @spaltenzahl - 2) * @gutWidth);
 }
 
+.flex-cont(@pad: 0;@wrap: wrap) {
+	margin-left:(-(@pad) * @gutWidth);
+	display:-ms-flexbox;
+	display:-webkit-box;
+	display:-moz-box;
+	display:-webkit-flex;
+	display:-ms-flex;
+	display:flex;
+	-webkit-flex-wrap:@wrap;
+	-ms-flex-wrap: @wrap;
+	flex-wrap:@wrap;
+}
+
+.justify(@value) when (@value = flex-end) {
+	-ms-flex-pack:end;
+}
+
+.justify(@value) when (@value = flex-start) {
+	-ms-flex-pack:start;
+}
+
+.justify(@value) when (@value = center) {
+	-ms-flex-pack:center;
+}
+
+.justify(@value) when (@value = space-between) {
+	-ms-flex-pack:justify;
+}
+
+.justify(@value) when (@value = space-around) {
+	-ms-flex-pack:distribute;
+}
+
+.justify(@value) {
+	-webkit-justify-content:@value;
+	-moz-justify-content:@value;
+	-ms-justify-content:@value;
+	justify-content:@value;
+}
+
+.order(@value) {
+	-webkit-ordinal-group:@value;
+	-moz-ordinal-group:@value;
+	-webkit-order:@value;
+	-ms-flex-order:@value;
+	order:@value;
+}
+
+.flex(@grow: 0; @shrink: 1; @basis: 0%; @padding: 0) {
+	/* The initial value of min-width for flex items is auto.
+	   To prevent strange behaviour, I set the default to 0. */
+	min-width:0;
+	padding: 0 @padding;
+	-webkit-box-flex:@grow @shrink @basis;
+	-moz-box-flex:@grow @shrink @basis;
+	-webkit-flex:@grow @shrink @basis;
+	-ms-flex:@grow @shrink @basis;
+	flex:@grow @shrink @basis;
+}
+
 .no-col() {
 	float:none;
 	margin:0;
@@ -121,7 +181,7 @@
 
 .font(
    @size:@fontsize,
-   @lineheight:@vertical,
+   @lineheight:@lineheight,
    @stack:@fontfamily) {
 	font-size:@size;
 	line-height:@lineheight;
@@ -155,7 +215,7 @@
 }
 
 .column-count(
-   @count:1.5em) {
+   @count:2) {
 	-webkit-column-count:@count;
 	-moz-column-count:@count;
 	column-count:@count;
@@ -215,6 +275,78 @@
 
 @micro: @fontsize * 0.6;
 @microline: @lineheight / 0.6;
+
+.generate-h(@i) when (@i = 1) {
+	h1 {
+		font-size:@h1;
+		line-height:@h1line;
+		@media @m2 {
+			font-size:(@h1 * @multiplier);
+		}
+	}
+}
+
+.generate-h(1);
+
+.generate-h(@i) when (@i = 2) {
+	h2 {
+		font-size:@h2;
+		line-height:@h2line;
+		@media @m2 {
+			font-size:(@h2 * @multiplier);
+		}
+	}
+}
+
+.generate-h(2);
+
+.generate-h(@i) when (@i = 3) {
+	h3 {
+		font-size:@h3;
+		line-height:@h3line;
+		@media @m2 {
+			font-size:(@h3 * @multiplier);
+		}
+	}
+}
+
+.generate-h(3);
+
+.generate-h(@i) when (@i = 4) {
+	h4 {
+		font-size:@h4;
+		line-height:@h4line;
+		@media @m2 {
+			font-size:(@h4 * @multiplier);
+		}
+	}
+}
+
+.generate-h(4);
+
+.generate-h(@i) when (@i = 5) {
+	h5 {
+		font-size:@h5;
+		line-height:@h5line;
+		@media @m2 {
+			font-size:(@h5 * @multiplier);
+		}
+	}
+}
+
+.generate-h(5);
+
+.generate-h(@i) when (@i = 6) {
+	h6 {
+		font-size:@h6;
+		line-height:@h6line;
+		@media @m2 {
+			font-size:(@h6 * @multiplier);
+		}
+	}
+}
+
+.generate-h(6);
 
 // === Vordefinierte Klassen === \\
 

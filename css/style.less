@@ -17,15 +17,58 @@
 
 // Größen
 
-@fontsize: 1em;
+@fontsizevalue: 1.125;
+@multiplier: 1.111;
+@fontsize: (@fontsizevalue * 1rem);
+@m-fontsizevalue: (@fontsizevalue * @multiplier);
+@m-fontsize: (@m-fontsizevalue * 1rem);
 @lineheight: 1.4444;
-@vertical: @fontsize * @lineheight;
+@vertical: (@fontsize * @lineheight);
+
+@verticalem: (@fontsizevalue * 1em * @lineheight);
 @pagewidth: 100%;
 @inhaltpadding:1em;
 
 // Schrift
 
 @fontfamily: sans-serif;
+@logofont: sans-serif;
+
+// Media Queries
+
+@m:'screen';
+@w1:45em;
+@w2:65em;
+@w3:105em;
+@w4:;
+@w5:;
+@w6:;
+@w7:;
+
+@m1:~"@{m} and (min-width:@{w1})";
+@m2:~"@{m} and (min-width:@{w2})";
+@m1-5:~"@{m} and (min-width:@{w1}) and (max-width:@{w5})";
+@m2-5:~"@{m} and (min-width:@{w2}) and (max-width:@{w5})";
+@m3-5:~"@{m} and (min-width:@{w3}) and (max-width:@{w5})";
+
+@m3:~"@{m} and (min-width:@{w3})";
+@s3:~"@{m} and (max-width:@{w3})";
+@m4:~"@{m} and (min-width:@{w4})";
+@m5:~"@{m} and (min-width:@{w5})";
+@m6:~"@{m} and (min-width:@{w6})";
+@m7:~"@{m} and (min-width:@{w7})";
+
+/** 
+ * Mixin für die Änderung der Zeilenhöhe. Korrespondiert mit der
+ * Schriftgrößenänderung für body.
+**/
+.vertical(@property; @multi:1) {
+	@{property}: (@vertical * @multi);
+	@media @m2 {
+		@{property}: (@vertical * @multiplier * @multi);
+	}
+}
+
 
 // === Variablen Ende === \\
 
@@ -35,18 +78,68 @@ body {
 	width:@pagewidth;
 	margin:0 auto;
 	.font();
+	@media @m2 {
+		.font(@m-fontsize);
+	}
 	background-color:@bgcolor;
 	color:@color;
+	.std-link();
 }
 
-p,ul,ol,dl,aside,section,article,h1,h3,h4,h5,h6,address,hr,main,table,iframe {
-	margin-bottom:@vertical;
+p,ul,ol,dl,aside,section,article,h1,h3,h4,h5,h6,address,hr,main,table,iframe,header {
+	.vertical(margin-bottom);
 }
 
 /* Bei h2 passt @vertical nicht. */
 
 h2 {
 	margin-bottom:1em;
+}
+
+a.skiplink {
+	position:absolute;
+	top:-4em;
+	display:block;
+	padding:.5em;
+	background-color:@bgcolor;
+	text-shadow:none;
+	text-decoration:none;
+	color:@color;
+	.border-radius(0 0 3px 3px);
+	.box-shadow();
+	&:focus {
+		top:0;
+		outline:none;
+	}
+}
+
+.std-link() {
+	a {
+		color:@linkcolor;
+		text-decoration:none;
+		.transition();
+		&:hover, &:focus {
+			color:@bgcolor;
+			background-color:@linkcolor;
+		}
+	}
+}
+
+.no-effect {
+	color:@color;
+	.transition-full(none);
+	&:hover, &:focus {
+		color:inherit;
+		background-color:inherit;
+	}
+}
+
+img {
+	max-width:100%;
+}
+
+abbr,acronym {
+	cursor:help;
 }
 
 // === Global Ende === \\
