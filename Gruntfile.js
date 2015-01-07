@@ -5,9 +5,18 @@
 module.exports = function (grunt) {
 
 	var name = '<%= pkg.name %>';
-	var ownJs = ['jquery', 'PROJECT', 'old-ie', 'old-ie2-superweirdbehaviour'];
-	var minJsRegExString = '(' + ownJs.join('|') + ')' + '(?:\\.min)*(\\.js)(?!o)';
+	var ownJs = [
+		'jquery',
+		'PROJECT',
+		'old-ie',
+		'old-ie2-superweirdbehaviour'
+	];
+	var minJsRegExString = '(' +
+		ownJs.join('|') +
+		')' + 
+		'(?:\\.min)*(\\.js)(?!o)';
 	var minJsRegEx = new RegExp(minJsRegExString, 'g');
+	var devDest = '/srv/http/tobias-barth.net';
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -17,68 +26,136 @@ module.exports = function (grunt) {
 			},
 			dev: {
 				files: [
-					{src: ['bower/html5shiv/dist/html5shiv.js', 'bower/respond/respond.min.js'], dest: 'dev/js/old-ie.js'},
-					{src: ['js/*.js'], dest: 'dev/js/' + name + '.js'},
-					{src: ['bower/rem-unit-polyfill/js/rem.js'], dest: 'dev/js/old-ie2-superweirdbehaviour.js'}
+					{
+						src: [
+							'bower/html5shiv/dist/html5shiv.js'
+						],
+						dest: 'dev/js/old-ie.js'
+					},
+					{
+						src: ['js/*.js'],
+						dest: 'dev/js/' + name + '.js'
+					},
+					{
+						src: ['bower/rem-unit-polyfill/js/rem.js'],
+						dest: 'dev/js/old-ie2-superweirdbehaviour.js'
+					}
 				]
 			},
 			modernizr: {
 				files: [
-					{src: ['bower/modernizr/modernizr.js', 'dev/js/' + name + '.js'], dest: 'dev/js/' + name + '.js'}
+					{
+						src: [
+							'bower/modernizr/modernizr.js',
+							'dev/js/' + name + '.js'
+						],
+						dest: 'dev/js/' + name + '.js'
+					}
 				]
 			}
 		},
 		copy: {
-			dev: {
+			focusfix: {
+				options: {
+					process: function(content, srcpath) {
+						var jshintNotice = "/* jshint strict:false */";
+						return jshintNotice + "\n" + content;
+					}
+				},
 				files: [
-					{
-						expand: true,
-						src: ['bower/jquery/jquery.js'],
-						dest: 'dev/js/',
-						flatten: true
-					},
 					{
 						expand: true,
 						src: ['bower/yaml-focusfix.js/index.js'],
 						dest: 'js/',
 						flatten: true,
 						rename: function(dest, src) {
-							return dest + 'focusfix.js';
+							return dest + 'focusfix';
 						}
-					},
+					}
+				],
+			},
+			pages: {
+				files: [
 					{
 						expand: true,
 						cwd: 'pages/',
-						src: ['**/*.html', '**/*.php', '.htaccess', '**/*.xml', '**/*.txt'],
+						src: [
+							'**/*.html',
+							'**/*.php',
+							'.htaccess',
+							'**/*.xml',
+							'**/*.txt',
+							'**/*.config'
+						],
 						dest: 'dev/'
+					}
+				]
+			},
+			preDev: {
+				files: [
+				/*	{
+						expand: true,
+						src: ['bower/jquery/jquery.js'],
+						dest: 'dev/js/',
+						flatten: true
+					},*/
+					{
+						expand: true,
+						cwd: 'bower/font-awesome/fonts/',
+						src: [
+							'*.eot',
+							'*.woff',
+							'*.ttf',
+							'*.svg',
+							'*.otf'
+						],
+						dest: 'dev/fonts'
 					},
 					{
 						expand: true,
 						cwd: 'images/',
-						src: ['*.{jpg,JPG,jpeg}', '*.{gif,GIF}', '*.{png,PNG}', '*.{SVG,svg}'],
-						dest: 'dev/images/'
+						src: [
+							'**/*.{jpg,JPG,jpeg}',
+							'**/*.{gif,GIF}',
+							'**/*.{png,PNG}',
+							'**/*.{SVG,svg}'
+						],
+						dest: 'dev/images/',
+						flatten: true
 					}
 				]
 			},
 			dist: {
 				files: [
-					{
+					/*{
 						expand: true,
 						src: ['bower/jquery/jquery.min.js'],
 						dest: 'dist/js/',
 						flatten: true
-					},
+					},*/
 					{
 						expand: true,
 						cwd: 'pages/',
-						src: ['**/*.html', '**/*.php', '.htaccess', '**/*.xml', '**/*.txt'],
+						src: [
+							'**/*.html',
+							'**/*.php',
+							'.htaccess',
+							'**/*.xml',
+							'**/*.txt'
+						],
 						dest: 'dist/'
 					},
 					{
 						expand: true,
-						cwd: 'images/',
-						src: ['*.{jpg,JPG,jpeg}', '*.{gif,GIF}', '*.{png,PNG}', '*.{SVG,svg}'],
-						dest: 'dist/images/'
+						cwd: 'bower/font-awesome/fonts/',
+						src: [
+							'*.eot',
+							'*.woff',
+							'*.ttf',
+							'*.svg',
+							'*.otf'
+						],
+						dest: 'dist/fonts'
 					}
 				]
 			},
@@ -97,7 +174,7 @@ module.exports = function (grunt) {
 						flatten: true
 					}
 				]
-			},
+			}
 		},
 		imagemin: {
 			dist: {
@@ -174,19 +251,46 @@ module.exports = function (grunt) {
 			}
 		},
 		jshint: {
-			files: ['dev/js/' + name + '.js'],
+			options: {
+				jshintrc: true,
+			},
+			gruntfile: ['Gruntfile.js'],
+			prodCode: ['js/*.js']
 		},
 		less: {
+			options: {
+				paths: ['bower/font-awesome/less']
+			},
 			dev: {
-				options: {
-				},
-				files: {'dev/css/style.css': 'css/style.less'}
+				files: [
+					{
+						src: 'css/style.less',
+						dest: 'dev/css/style.css'
+					},
+					{
+						src: 'css/old-ie.less',
+						dest: 'dev/css/old-ie.css'
+					}
+				]
 			},
 			dist: {
 				options: {
-					yuicompress: true
+					cleancss: true
 				},
-				files: {'dist/css/style.min.css': 'css/style.less'}
+				files: [
+					{
+						src: 'css/style.less',
+						dest: 'dist/css/style.min.css'
+					}
+				]
+			},
+			"ie-dist": {
+				files: [
+					{
+						src: 'css/old-ie.less',
+						dest: 'dist/css/old-ie.min.css'
+					}
+				]
 			}
 		},
 		modernizr: {
@@ -207,7 +311,10 @@ module.exports = function (grunt) {
 		},
 		"regex-replace": {
 			dev: {
-				src: ['dev/**/*.html', 'dist/**/*.php'],
+				src: [
+					'dev/**/*.html',
+					'dev/**/*.php'
+				],
 				actions: [
 					{
 						name: "Inject project's main JS filename",
@@ -217,7 +324,10 @@ module.exports = function (grunt) {
 				]
 			},
 			dist: {
-				src: ['dist/**/*.html', 'dist/**/*.php'],
+				src: [
+					'dist/**/*.html',
+					'dist/**/*.php'
+				],
 				actions: [
 					{
 						name: 'Minify script tag',
@@ -233,12 +343,7 @@ module.exports = function (grunt) {
 						name: 'Minify CSS',
 						search: /(?:\.min)*(\.css)/g,
 						replace: '.min$1'
-					}/*,
-					{
-						name: 'Dist-Base-Address',
-						search: /(\$BASE = "http:\/\/)[^"]+/,
-						replace: '$1expedition-colonia.de/'
-					}*/
+					}
 				]
 			}
 		},
@@ -246,11 +351,16 @@ module.exports = function (grunt) {
 			dist: {
 				files: [
 					{
-						src: ['js/build/modernizr-custom.js', 'js/*.js'],
+						src: [
+							'js/build/modernizr-custom.js',
+							'js/*.js'
+						],
 						dest: 'dist/js/' + name + '.min.js'
 					},
 					{
-						src: ['bower/html5shiv/dist/html5shiv.js', 'bower/respond/respond.min.js'],
+						src: [
+							'bower/html5shiv/dist/html5shiv.js'
+						],
 						dest: 'dist/js/old-ie.min.js'
 					},
 					{
@@ -260,14 +370,43 @@ module.exports = function (grunt) {
 				]
 			}
 		},
+		rsync: {
+			options: {
+				recursive: true,
+				args: ['--verbose','--links','--times']
+			},
+			dev: {
+				options: {
+					src: 'dev/',
+					dest: devDest,
+					delete: true
+				}
+			}
+		},
 		watch: {
+			checkGruntfile: {
+				files: ['Gruntfile.js'],
+				tasks: ['jshint:gruntfile']
+			},
 			compileCss: {
 				files: ['css/*.less'],
 				tasks: ['less:dev']
 			},
 			catJs: {
 				files: ['js/*.js'],
-				tasks: ['concat:dev']
+				tasks: ['jshint:prodCode', 'concat:dev']
+			},
+			copyPages: {
+				files: ['pages/**/*'],
+				tasks: ['copy:pages']
+			},
+			regexRepl: {
+				files: ['pages/**/*'],
+				tasks: ['regex-replace:dev']
+			},
+			copyDev: {
+				files: ['dev/**/*'],
+				tasks: ['rsync:dev']
 			}
 		}
 	});
@@ -281,8 +420,26 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-regex-replace');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-rsync');
 
-	grunt.registerTask('default', ['less:dev', 'copy:dev', 'concat:dev', 'jshint', /*'concat:modernizr',*/ 'regex-replace:dev', 'imagemin:dev']);
-	grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin:dist']);
-/*	grunt.registerTask('dist', ['less:dist', 'modernizr:dist', 'uglify:dist', 'copy:dist', 'regex-replace:dist', 'imagemin:dist']);*/
+	grunt.registerTask('copy:dev', [
+		'copy:pages',
+		'copy:preDev'
+	]);
+	grunt.registerTask('default', [
+		'less:dev',
+		'copy:dev',
+		'concat:dev',
+		'jshint',
+		/*'concat:modernizr',*/
+		'regex-replace:dev',
+	]);
+	grunt.registerTask('dist', [
+		'less:dist',
+		'less:ie-dist',
+		'uglify:dist',
+		'copy:dist',
+		'regex-replace:dist',
+		'imagemin:dist'
+	]);
 };
