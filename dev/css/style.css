@@ -122,18 +122,100 @@ blockquote {
   padding: 0 1em;
   border-left: 3px solid #ddd;
 }
+/* Abschalten des bekackten <button>-Hintergrundverlaufs in Mobile Firefox */
+button {
+  background-image: none;
+}
 /* === Reset Ende === */
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.4444;
+}
+@media screen and (min-width:65em) {
+  h1 {
+    font-size: 2.49975rem;
+  }
+}
+h2 {
+  font-size: 1.62495rem;
+  line-height: 1;
+}
+@media screen and (min-width:65em) {
+  h2 {
+    font-size: 1.80531945rem;
+  }
+}
+h3 {
+  font-size: 1.35rem;
+  line-height: 1.20366667;
+}
+@media screen and (min-width:65em) {
+  h3 {
+    font-size: 1.49985rem;
+  }
+}
+h4 {
+  font-size: 1.2375rem;
+  line-height: 1.31309091;
+}
+@media screen and (min-width:65em) {
+  h4 {
+    font-size: 1.3748625rem;
+  }
+}
+h5 {
+  font-size: 1.125rem;
+  line-height: 1.4444;
+}
+@media screen and (min-width:65em) {
+  h5 {
+    font-size: 1.249875rem;
+  }
+}
+h6 {
+  font-size: 1.125rem;
+  line-height: 1.4444;
+}
+@media screen and (min-width:65em) {
+  h6 {
+    font-size: 1.249875rem;
+  }
+}
 .hidden {
   display: none;
 }
+/** 
+ * Mixin für die Änderung der Zeilenhöhe. Korrespondiert mit der
+ * Schriftgrößenänderung für body.
+**/
 body {
   width: 100%;
   margin: 0 auto;
-  font-size: 1em;
-  line-height: 1.4444em;
+  font-size: 1.125rem;
+  line-height: 1.4444;
   font-family: sans-serif;
   background-color: #212121;
   color: #ffffff;
+}
+@media screen and (min-width:65em) {
+  body {
+    font-size: 1.249875rem;
+    line-height: 1.4444;
+    font-family: sans-serif;
+  }
+}
+body a {
+  color: #a61300;
+  text-decoration: none;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+body a:hover,
+body a:focus {
+  color: #212121;
+  background-color: #a61300;
 }
 p,
 ul,
@@ -151,12 +233,74 @@ address,
 hr,
 main,
 table,
-iframe {
-  margin-bottom: 1.4444em;
+iframe,
+header {
+  margin-bottom: 1.62495rem;
+}
+@media screen and (min-width:65em) {
+  p,
+  ul,
+  ol,
+  dl,
+  aside,
+  section,
+  article,
+  h1,
+  h3,
+  h4,
+  h5,
+  h6,
+  address,
+  hr,
+  main,
+  table,
+  iframe,
+  header {
+    margin-bottom: 1.80531945rem;
+  }
 }
 /* Bei h2 passt @vertical nicht. */
 h2 {
   margin-bottom: 1em;
+}
+a.skiplink {
+  position: absolute;
+  top: -4em;
+  display: block;
+  padding: .5em;
+  background-color: #212121;
+  text-shadow: none;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+a.skiplink:focus {
+  top: 0;
+  outline: none;
+}
+.no-effect {
+  color: #ffffff;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+.no-effect:hover,
+.no-effect:focus {
+  color: inherit;
+  background-color: inherit;
+}
+img {
+  max-width: 100%;
+}
+abbr,
+acronym {
+  cursor: help;
 }
 /* Print-Stylesheet übernommmen aus http://html5boilerplate.com */
 @media print {
