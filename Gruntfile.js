@@ -1,8 +1,5 @@
-/* jshint node:true */
-
-"use strict";
-
 module.exports = function (grunt) {
+	'use strict';
 
 	var name = '<%= pkg.name %>';
 	var ownJs = [
@@ -15,7 +12,6 @@ module.exports = function (grunt) {
 		ownJs.join('|') +
 		')' + 
 		'(?:\\.min)*(\\.js)(?!o)';
-	var minJsRegEx = new RegExp(minJsRegExString, 'g');
 	var devDest = '/srv/http/tobias-barth.net';
 
 	grunt.initConfig({
@@ -57,9 +53,11 @@ module.exports = function (grunt) {
 		copy: {
 			focusfix: {
 				options: {
-					process: function(content, srcpath) {
-						var jshintNotice = "/* jshint strict:false */";
-						return jshintNotice + "\n" + content;
+					process: function(content) {
+						var eslintNotice = '/* eslint strict:false */';
+						/* eslint-disable */
+						return eslintNotice + "\n" + content;
+						/* eslint-enable */
 					}
 				},
 				files: [
@@ -68,11 +66,11 @@ module.exports = function (grunt) {
 						src: ['bower/yaml-focusfix.js/index.js'],
 						dest: 'js/',
 						flatten: true,
-						rename: function(dest, src) {
+						rename: function(dest) {
 							return dest + 'focusfix';
 						}
 					}
-				],
+				]
 			},
 			pages: {
 				files: [
@@ -210,7 +208,7 @@ module.exports = function (grunt) {
 						src: ['**/*.{svg,SVG}'],
 						dest: 'dist/images/',
 						ext: '.svg'
-					},
+					}
 				]
 			},
 			dev: {
@@ -246,14 +244,11 @@ module.exports = function (grunt) {
 						src: ['**/*.{svg,SVG}'],
 						dest: 'dev/images/',
 						ext: '.svg'
-					},
+					}
 				]
 			}
 		},
-		jshint: {
-			options: {
-				jshintrc: true,
-			},
+		eslint: {
 			gruntfile: ['Gruntfile.js'],
 			prodCode: ['js/*.js']
 		},
@@ -284,7 +279,7 @@ module.exports = function (grunt) {
 					}
 				]
 			},
-			"ie-dist": {
+			'ie-dist': {
 				files: [
 					{
 						src: 'css/old-ie.less',
@@ -309,7 +304,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		"regex-replace": {
+		'regex-replace': {
 			dev: {
 				src: [
 					'dev/**/*.html',
@@ -317,7 +312,7 @@ module.exports = function (grunt) {
 				],
 				actions: [
 					{
-						name: "Inject project's main JS filename",
+						name: 'Inject project\'s main JS filename',
 						search: /PROJECT(\.js)/,
 						replace: name + '$1'
 					}
@@ -335,7 +330,7 @@ module.exports = function (grunt) {
 						replace: '$1.min$2'
 					},
 					{
-						name: "Inject project's main JS filename",
+						name: 'Inject project\'s main JS filename',
 						search: /PROJECT(\.min\.js)/,
 						replace: name + '$1'
 					},
@@ -386,7 +381,7 @@ module.exports = function (grunt) {
 		watch: {
 			checkGruntfile: {
 				files: ['Gruntfile.js'],
-				tasks: ['jshint:gruntfile']
+				tasks: ['eslint:gruntfile']
 			},
 			compileCss: {
 				files: ['css/*.less'],
@@ -394,7 +389,7 @@ module.exports = function (grunt) {
 			},
 			catJs: {
 				files: ['js/*.js'],
-				tasks: ['jshint:prodCode', 'concat:dev']
+				tasks: ['eslint:prodCode', 'concat:dev']
 			},
 			copyPages: {
 				files: ['pages/**/*'],
@@ -414,7 +409,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-modernizr');
 	grunt.loadNpmTasks('grunt-regex-replace');
@@ -430,9 +425,9 @@ module.exports = function (grunt) {
 		'less:dev',
 		'copy:dev',
 		'concat:dev',
-		'jshint',
+		'eslint',
 		/*'concat:modernizr',*/
-		'regex-replace:dev',
+		'regex-replace:dev'
 	]);
 	grunt.registerTask('dist', [
 		'less:dist',
